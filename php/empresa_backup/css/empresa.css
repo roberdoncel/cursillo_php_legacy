@@ -1,0 +1,72 @@
+body{
+	
+	margin: 0 auto;
+	width: 95%;
+}
+
+div{
+	margin-top:1em;
+}
+
+#divEnlace{
+	text-align: right;
+}
+
+
+
+#entornoTitle{
+	color:#302A2A;
+	font-family:"Poplar Std";
+	font-size: 4em;
+	margin: 1em;
+}
+#nombreClienteProyectos{
+	color:#3829A7;
+	font-family: 'Microsoft NeoGothic';
+	font-size: 2.4em;
+	font-weight: bold;
+
+}
+#nombreTitle{
+	margin-left: 2em;
+	font-family: candara;
+	font-size: 2em;
+}
+
+#seccionTabla{
+	text-align: center;
+}
+
+.borderBottom{
+	border-bottom: 1px solid;
+}
+.celdasEncabezado{
+	border:1px solid;
+	padding:0.13em;
+}
+
+.encabezadoTabla{
+	font-family:Calibri;
+	font-size: 1.1em;
+}
+
+.enlaces{
+	font-family: 'Century Gothic', Arial;
+	font-size: 1.1em;
+	font-style: italic;
+	font-weight: bold;
+
+	margin:1em;
+	text-decoration: none;
+
+}
+
+
+.icoTablas{
+
+	width: 25%;
+}
+
+.tabla{
+	margin:0 auto;
+}

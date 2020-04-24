@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="ejercicio48.php" method="post" enctype="multipart/form-data">
+	<!--Es imprescindible el enctype="multipart/form-data" para poder subir archivos -->
+	<div>
+		<a href="ejercicio48borrar.php">Borrar fotos</a>
+		<a href="ejercicio48fotos.php">Ver fotos</a>
+	</div>
+	ID: 
+	<input type="text" name="id_txt" required/>
+	<div>
+ 	Seleccionar imagen:
+    <input type="file" name="archivo_seleccionado" id="fileToUpload">
+	</div>
+   
+    <input type="submit" value="Subir imagen" name="submit">
+</form>
+
+</body>
+</html>

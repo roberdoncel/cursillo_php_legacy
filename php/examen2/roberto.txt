@@ -1,0 +1,321 @@
+NOMBRE: Roberto Doncel Muñoz
+FECHA: 17/02/2017
+
+
+NOTA: El programa empieza en controlador_clientes.php
+
+A)Tablas
+
+Base de datos:Examen.
+
+	->Tabla CLIENTES:
+		->ID:int AUTOINCREMENTAL
+		->NOMBRE:tinytext
+		->APELLIDOS: tinytext
+		->NIF:  tinytext
+		->FECHA_NACIMIENTO: date
+		->DIRECCION:  tinytext
+		->LOCALIDAD:  tinytext
+		->PROVINCIA:  tinytext
+		->TELEFONO:  tinytext
+
+	->Tabla PEDIDOS:
+		-> ID: int AUTOINCREMENTAL
+		-> CANTIDAD:int
+		-> PRECIO: int
+		-> CODIGO_VENDEDOR: int
+		-> CODIGO_TIENDA: int
+		-> FECHA: date
+		-> ID_CLIENTE: int
+
+
+B) controlador_clientes.php
+
+
+	<?php
+		include 'funciones.php';
+
+		$clientes=array();
+		$clientes=mostrarTodosClientes();
+
+		include 'vista_clientes.php';
+	?>
+
+
+
+vista_clientes.php
+
+	<!DOCTYPE html>
+
+	<html>
+		<head>
+			<title></title>
+		</head>
+		<body>
+			<?php
+				echo "<table>";
+				echo "<tr>";
+				echo "<td>ID</td>";
+				echo "<td>NOMBRE</td>";
+				echo "<td>APELLIDOS</td>";
+				echo "<td>NIF</td>";
+				echo "<td>FECHA NACIMIENTO</td>";
+				echo "<td>DIRECCION</td>";
+				echo "<td>LOCALIDAD</td>";
+				echo "<td>PROVINCIA</td>";
+				echo "<td>TELEFONO</td>";
+				echo "</tr>";
+
+				foreach ($clientes as $campo) {
+					echo "<tr>";
+					echo "<td>" .$campo['ID'] ."</td>";
+					echo "<td>" .$campo['NOMBRE']."</td>";
+					echo "<td>" .$campo['APELLIDOS']."</td>";
+					echo "<td>" .$campo['NIF']."</td>";
+					echo "<td>" .$campo['FECHA_NACIMIENTO']."</td>";
+					echo "<td>" .$campo['DIRECCION']."</td>";
+					echo "<td>" .$campo['LOCALIDAD']."</td>";
+					echo "<td>" .$campo['PROVINCIA']."</td>";
+					echo "<td>" .$campo['TELEFONO']."</td>";
+					echo "<td>";
+					echo"<a href='controlador_pedidos.php?idCliente=" .$campo['ID'] ."'>Ver pedidos </a>";
+					echo "</td>";
+					echo "<td>";
+					echo"<a href='editar_cliente.php?idCliente=" .$campo['ID'] ."'>EditarCliente</a>";
+					echo "</td>";											
+					echo "</tr>";
+				}
+				echo "</table>";
+			?>
+
+		</body>
+	</html>
+
+
+ controlador_pedidos.php
+
+	<?php
+		include 'funciones.php';
+
+		$idCliente=$_GET['idCliente'];
+		$pedidos = array();
+		$pedidos = mostrarPedidosCliente($idCliente);
+
+		include 'vista_pedidos.php';
+	?>
+
+
+vista_pedidos.php
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<?php
+			echo "<table>";
+			echo "<tr>";
+			echo "<td>ID</td>";
+			echo "<td>CANTIDAD</td>";
+			echo "<td>CODIGO_VENDEDOR</td>";
+			echo "<td>CODIGO_TIENDA</td>";
+			echo "<td>FECHA</td>";
+			echo "<td>ID_CLIENTE</td>";
+			echo "</tr>";
+			foreach ($pedidos as $campo) {
+				echo "<tr>";
+				echo "<td>" .$campo['ID'] ."</td>";
+				echo "<td>" .$campo['CANTIDAD']."</td>";
+				echo "<td>" .$campo['CODIGO_VENDEDOR']."</td>";
+				echo "<td>" .$campo['CODIGO_TIENDA']."</td>";
+				echo "<td>" .$campo['FECHA']."</td>";
+				echo "<td>" .$campo['ID_CLIENTE']."</td>";					
+				echo "</tr>";
+			}
+			echo "</table>";
+		?>
+	</body>
+</html>
+
+
+C) editar_cliente.php
+
+	<?php
+		include 'funciones.php';
+		$cliente = $_GET['idCliente'];
+
+		$datos=array();
+		$datos=recuperarDatosCliente($cliente);
+
+		foreach ($datos as $campo) {
+			$id= $campo['ID'];
+			$nombre=$campo['NOMBRE'];
+			$apellidos=$campo['APELLIDOS'];
+			$nif = $campo['NIF'];
+			$fNacimiento = $campo['FECHA_NACIMIENTO'];
+			$direccion = $campo['DIRECCION'];
+			$localidad = $campo['LOCALIDAD'];
+			$provincia = $campo['PROVINCIA'];
+			$telefono = $campo['TELEFONO'];
+		}
+
+		include 'vista_editar_cliente.php';
+
+	?>
+
+
+vista_editar_cliente.php
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<form name='form1' action='confirm_editar_cliente.php?idCliente=<?php echo $id ?>' method='post'>
+			<div>
+				<label>NOMBRE:</label>
+				<input type='text' name='nombre_txt' value="<?php echo $nombre ?>" />
+			</div>
+			<div>
+				<label>APELLIDOS:</label>
+				<input type='text' name='apellidos_txt'  value="<?php echo $apellidos ?>"/>
+			</div>
+			<div>
+				<label>NIF:</label>
+				<input type='text' name='nif_txt' value="<?php echo $nif ?>"/>
+			</div>
+			<div>
+				<label>FECHA_NACIMIENTO:</label>
+				<input type='text' name='fNacimiento' placeholder='yyyy-mm-dd' value="<?php echo $fNacimiento ?>"/>
+			</div>
+			<div>
+				<label>DIRECCION:</label>
+				<input type='text' name='direccion_txt' value="<?php echo $direccion ?>"/>
+			</div>
+			<div>
+				<label>LOCALIDAD</label>
+				<input type='text' name='localidad_txt' value="<?php echo $localidad ?>"/>
+			</div>
+			<div>
+				<label>PROVINCIA</label>
+				<input type='text' name='provincia_txt' value="<?php echo $provincia ?>" />
+			</div>
+			<div>
+				<label>TELEFONO</label>
+				<input type='text' name='telefono_txt' value="<?php echo $telefono ?>" />
+			</div>
+			<input type='submit' value='Actualizar' />
+		</form>
+	</body>
+</html>
+
+
+confirm_editar_cliente.php
+
+	<?php
+		include 'funciones.php';
+
+		$mensaje=actualizarDatosCliente($_GET['idCliente'],$_POST['nombre_txt'],$_POST['apellidos_txt'],$_POST['nif_txt'], $_POST['fNacimiento'],$_POST['direccion_txt'],$_POST['localidad_txt'],$_POST['provincia_txt' ],$_POST['telefono_txt']);
+
+		include 'vista_confirm_editar_cliente.php';
+	?>
+
+
+vista_confirm_editar_cliente.php
+
+	<!DOCTYPE html>
+
+	<html>
+		<head>
+			<title></title>
+		</head>
+		<body>
+			<?php
+			echo $mensaje;
+			?>
+			<a href="controlador_clientes.php">Volver a la Vista de Clientes</a>	
+		</body>
+	</html>
+
+
+funciones.php
+
+<?php
+
+	function crearConexionBD(){
+		$conexionBD = new mysqli('localhost', 'root', '','EXAMEN');
+		$conexionBD -> query("SET NAMES 'utf8'");
+		return $conexionBD;
+	}
+
+	function mostrarTodosClientes(){
+		$tabla=array();
+		$conexionBD = crearConexionBD();
+
+		$resultados =$conexionBD ->query("SELECT * FROM CLIENTES");
+		if(mysqli_num_rows($resultados)!= 0){
+
+			while($reg = $resultados -> fetch_assoc()){
+				$tabla[]=$reg;
+			}
+		}else{
+			//echo "No se han encontrado registros en la tabla CLIENTES <br />";
+		}
+		$conexionBD -> close();
+		return $tabla;
+	}
+
+	function mostrarPedidosCliente($idCliente){
+		$tabla=array();
+		$conexionBD = crearConexionBD();
+
+		$resultados =$conexionBD ->query("SELECT * FROM PEDIDOS WHERE ID_CLIENTE=" .$idCliente);
+		if(mysqli_num_rows($resultados)!= 0){
+
+			while($reg = $resultados -> fetch_assoc()){
+				$tabla[]=$reg;
+			}
+		}else{
+			//echo "No se han encontrado registros en la tabla CLIENTES <br />";
+		}
+		$conexionBD -> close();
+		return $tabla;
+	}
+
+	function recuperarDatosCliente($idCliente){
+		$tabla=array();
+		$conexionBD = crearConexionBD();
+
+		$resultados =$conexionBD ->query("SELECT * FROM CLIENTES WHERE ID=" .$idCliente);
+		if(mysqli_num_rows($resultados)!= 0){
+
+			while($reg = $resultados -> fetch_assoc()){
+				$tabla[]=$reg;
+			}
+		}else{
+			//echo "No se han encontrado registros en la tabla CLIENTES <br />";
+		}
+		$conexionBD -> close();
+		return $tabla;
+	}
+
+	function actualizarDatosCliente($idCliente, $nombre, $apellidos, $nif, $fNacimiento,$direccion,$localidad, $provincia,$telefono){
+
+		$mensaje='';
+		$conexionBD = crearConexionBD();
+
+		if($conexionBD ->query("UPDATE CLIENTES SET NOMBRE ='$nombre', APELLIDOS='$apellidos', NIF='$nif', FECHA_NACIMIENTO='$fNacimiento', DIRECCION='$direccion', LOCALIDAD='$localidad', PROVINCIA='$provincia', TELEFONO='$telefono' WHERE ID=" .$idCliente)){
+			$mensaje='Se han actualizado los datos correctamente';
+		}else{
+			$mensaje='Error al actualizar los datos';
+		}
+		
+		$conexionBD->close();
+		return $mensaje;
+	}
+
+?>

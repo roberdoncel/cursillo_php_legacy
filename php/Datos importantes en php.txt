@@ -1,0 +1,9 @@
+host: vl22866.dns-privadas.es
+usuario:curso
+contraseña: osruc
+
+sentencias importantes:
+
+- <?php echo 'Mientras que esto va a ser interpretado.'; ?>
+- echo 'Hola Mundo';
+- echo "ADIOS";

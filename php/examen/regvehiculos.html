@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="es">
+	<head>
+		<title></title>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<form name="form1" action="regvehiculos.php" method="post">
+			<div>
+				<label>MODELO</label>
+				<input type="text" name="modelo_txt"/>
+			</div>
+			<div>
+				<label>MARCA</label>
+				<input type="text" name="marca_txt" />
+			</div>
+			<div>
+				<label>COLOR</label>
+				<input type="text" name="color_txt" />
+			</div>
+			<div>
+				<label>PRECIO</label>
+				<input type="number" name="precio_num"/>
+				<label>Euros</label>
+			</div>
+			<div>
+				<label>MATRICULA</label>
+				<input type="text" name="matricula_txt"/>
+			</div>
+			<div>
+				<label>FECHA DE MATRICULACIÓN</label>.
+				<input type="text" name="fMatDia" placeholder="DD"/>
+				<input type="text" name="fMatMes" placeholder="MM"/>
+				<input type="text" name="fMatYear" placeholder="YYYY"/>
+		<!--		<input type="text" name="fMatricula" placeholder="YYYY-MM-DD"/>-->
+			</div>
+			<input type="submit" value="Registrar" />
+		</form>
+	</body>
+</html>
